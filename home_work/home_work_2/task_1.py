@@ -12,18 +12,37 @@ class Car:
         return print(f'Скорость автомобиля {self.speed} км/ч')
 
     def __str__(self):
-        return print(self)
+        return f"Name: {self.name}\n" \
+               f"Speed: {self.speed}\n" \
+               f"Color: {self.color}\n" \
+               f"Is_police: {self.is_police}\n"
 
-    def go(self):
+    @staticmethod
+    def go():
         return print('Машина начала ехать')
 
-    def stop(self):
+    @staticmethod
+    def stop():
         return print('Машина остановилась')
 
-    def turn(self, side):
+    @staticmethod
+    def turn(side):
         return print(f'Машина повернула на {side}')
 
 
-car = Car(speed=40, color='green', name='bmw', is_police=True)
+class TownCar(Car):
+    pass
+
+class WorKCar(Car):
+    pass
+
+
+car = Car(speed=40, color='green', name='bmw', is_police=False)
+
+print(car)
+
+
+
+
 
 
