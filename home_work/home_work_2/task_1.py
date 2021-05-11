@@ -7,9 +7,7 @@ class Car:
         self.is_police = is_police
 
     def show_speed(self):
-        if self.speed > 40:
-            print('Danger')
-        return print(f'Скорость автомобиля {self.speed} км/ч')
+        return print(f'Скорость {self.speed} км/ч')
 
     def __str__(self):
         return f"Name: {self.name}\n" \
@@ -31,18 +29,27 @@ class Car:
 
 
 class TownCar(Car):
-    pass
+    def show_speed(self):
+        if self.speed > 60:
+            print(f'Скорость автомобиля {self.name} перевышена')
+        super().show_speed()
 
-class WorKCar(Car):
-    pass
+
+class WorkCar(Car):
+    def show_speed(self):
+        if self.speed > 40:
+            print(f'Скорость автомобиля {self.name} перевышена')
+        super().show_speed()
 
 
 car = Car(speed=40, color='green', name='bmw', is_police=False)
 
+town_car = TownCar(speed=65, color='green', name='Audi', is_police=False)
+
 print(car)
 
-
-
+print(town_car)
+town_car.show_speed()
 
 
 
