@@ -1,10 +1,11 @@
 class Car:
+    is_police = False
 
-    def __init__(self, speed, color, name, is_police):
+    def __init__(self, speed, color, name):
         self.speed = speed
         self.color = color
         self.name = name
-        self.is_police = is_police
+        # self.is_police = is_police
 
     def show_speed(self):
         return print(f'Скорость {self.speed} км/ч')
@@ -42,9 +43,9 @@ class WorkCar(Car):
         super().show_speed()
 
 
-car = Car(speed=40, color='green', name='bmw', is_police=False)
+car = Car(speed=40, color='green', name='bmw')
 
-town_car = TownCar(speed=65, color='green', name='Audi', is_police=False)
+town_car = TownCar(speed=65, color='green', name='Audi')
 
 print(car)
 
