@@ -6,4 +6,3 @@ import pytest
 def test_hw3(fun_on, fun_off):
     tmp_res = string_rename(fun_on)
     assert tmp_res == fun_off
-

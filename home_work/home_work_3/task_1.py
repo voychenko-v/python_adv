@@ -24,3 +24,4 @@ with open('old_list.txt', 'r') as f:
         tmp_str += tmp
     with open('new_list.txt', 'a', encoding="utf-8") as f_2:
         print(tmp_str, file=f_2)
+
