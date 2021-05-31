@@ -40,21 +40,46 @@ with conn:
     cursor.execute(creator_departments)
     cursor.execute(creator_employees)
 
-
-orders_data = [(datetime.now(), 'Установка', 'Установка холодильника', 'Новая', '342564343', 1324),
-               (datetime.now(), 'Демонтаж', 'Демонтаж кондиционера', 'Новая', '456831430', 3212)]
-employees_data = []
-departments_data = []
+# orders_data = [(datetime.now(), 'Установка', 'Установка холодильника', 'Новая', '3425443', 1324),
+#                (datetime.now(), 'Демонтаж', 'Демонтаж кондиционера', 'Новая', '45631430', 3212),
+#                (datetime.now(), 'Ремонт', 'Ремонт ноутбука', 'Новая', '84763489', 4536),
+#                (datetime.now(), 'Установка', 'Установка холодильника', 'Новая', '95848694', 7956),
+#                (datetime.now(), 'Демонтаж', 'Демонтаж кондиционера', 'Новая', '24673563', 8645),
+#                (datetime.now(), 'Ремонт', 'Ремонт телефона', 'Новая', '7525673', 8453),
+#                (datetime.now(), 'Демонтаж', 'Демонтаж кондиционера', 'Новая', '2653432', 3658),
+#                (datetime.now(), 'Установка', 'Установка кондиционера', 'Новая', '2557474', 9765),
+#                (datetime.now(), 'Демонтаж', 'Демонтаж кондиционера', 'Новая', '23647234', 3676),
+#                (datetime.now(), 'Ремонт', 'Ремонт ноутбука', 'Новая', '7845356', 5675),
+#                (datetime.now(), 'Демонтаж', 'Демонтаж стиральной машины', 'Новая', '34845636', 5980),
+#                (datetime.now(), 'Установка', 'Установка стиральной машины', 'Новая', '74342567', 6980),
+#                (datetime.now(), 'Ремонт', 'Ремонт ноутбука', 'Новая', '34463455', 7686),
+#                (datetime.now(), 'Установка', 'Установка кондиционера', 'Новая', '78547832', 4789),
+#                (datetime.now(), 'Демонтаж', 'Демонтаж холодильника', 'Новая', '3765685', 3467)]
+# departments_data = [['Отдел продаж'], ['Бухгалтерия'], ['Отдел ремонта'], ['ИТ'], ['Склад']]
+# employees_data = [('Иванов Андрей', 'Менеджер', 1),
+#                   ('Шевченко Мария', 'Менеджер', 1),
+#                   ('Полевая Катерина', 'Менеджер', 1),
+#                   ('Кармалыга Виктор', 'Бухгалтер', 2),
+#                   ('Псуйко Анна', 'Заместитель бухгалтера', 2),
+#                   ('Антонович Дмитрий', 'Мастер', 3),
+#                   ('Князь Ирина', 'Мастер', 3),
+#                   ('Короп Филип', 'Мастер', 3),
+#                   ('Стив Джобс', 'FullStack Developer', 4),
+#                   ('Сорока Юлия', 'Контент менеджер', 4),
+#                   ('Довбуш Станислав', 'Водитель', 5),
+#                   ('Климов Богдан', 'Разноробочий', 5)]
 #
-INSERT_ORDERS = sql.SQL('''
-INSERT INTO orders (created_dt, order_type, description, status, serial_no, creator_id) VALUES (%s, %s, %s, %s, %s, %s)
-''')
-# INSERT_EMPLOYEES = sql.SQL('''INSERT INTO employees (fio, position, department_id) VALUES (%s, %s, %s)''')
+# INSERT_ORDERS = sql.SQL('''
+# INSERT INTO orders (created_dt, order_type, description, status, serial_no, creator_id) VALUES (%s, %s, %s, %s, %s, %s)
+# ''')
 # INSERT_DEPARTMENTS = sql.SQL('''INSERT INTO departments (department_name) VALUES (%s)''')
+# INSERT_EMPLOYEES = sql.SQL('''INSERT INTO employees (fio, position, department_id) VALUES (%s, %s, %s)''')
 # SELECT_QUERY = '''SELECT * FROM employees'''
 #
-with conn, cursor:
-    for orders in orders_data:
-        cursor.execute(INSERT_ORDERS, orders)
-
-
+# with conn, cursor:
+#     for orders in orders_data:
+#         cursor.execute(INSERT_ORDERS, orders)
+#     for departments in departments_data:
+#         cursor.execute(INSERT_DEPARTMENTS, departments)
+#     for employees in employees_data:
+#         cursor.execute(INSERT_EMPLOYEES, employees)
