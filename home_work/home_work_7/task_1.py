@@ -2,6 +2,8 @@ import psycopg2
 from psycopg2 import sql
 from datetime import datetime
 
+conn = psycopg2.connect('postgres://postgres:postgresdb@localhost:5432/order_service_db')
+cursor = conn.cursor()
 
 class Queries:
 
@@ -14,9 +16,12 @@ class Queries:
 
 
 class Order(Queries):
-    conn = psycopg2.connect('postgres://postgres:postgresdb@localhost:5432/order_service_db')
-    cursor = conn.cursor()
+
     __id_counter = 1
+    INSERT_ORDERS = sql.SQL('''
+            INSERT INTO orders (created_dt, order_type, description, status, serial_no, creator_id) 
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ''')
 
     def __init__(self, order_type, description, status, serial_no, creator_id):
         Order.data_time = str(datetime.now().strftime("%d-%m-%Y"))
@@ -38,16 +43,9 @@ class Order(Queries):
                f'Creator_id: {self.creator_id}\n'
 
     def new_order(self):
-        data = [(datetime.now(), self.order_type, self.description, self.status, self.serial_no, self.creator_id)]
-        order_string = sql.SQL('''
-        INSERT INTO orders (created_dt, order_type, description, status, serial_no, creator_id) 
-        VALUES (%s, %s, %s, %s, %s, %s)
-        ''')
-        with Order.conn, Order.cursor:
-            for d in data:
-            # return super().insert_data(order_string)
-                return Order.__cursor.execute(order_string, d)
-
+        with conn, cursor:
+            cursor.execute(self.__class__.INSERT_ORDERS, (datetime.now(), self.order_type, self.description,
+                                                          self.status, self.serial_no, self.creator_id))
 
     def change_status(self):
         pass
