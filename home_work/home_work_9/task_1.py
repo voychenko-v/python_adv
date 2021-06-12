@@ -1,5 +1,3 @@
-import datetime
-
 import mongoengine as me
 from datetime import datetime
 
@@ -13,6 +11,15 @@ class Departments(me.Document):
     def __str__(self):
         return f'ID: {self.pk} |Department_id: {self.department_id} | Department_name: {self.department_name}'
 
+    def save_department(self, *args, **kwargs):
+        return super().save(*args, **kwargs)
+
+    def update_department(self, **kwargs):
+        return super().update(**kwargs)
+
+    def delete_department(self, *args, **kwargs):
+        return super().delete(*args, **kwargs)
+
 
 class Employees(me.Document):
     employees_id = me.IntField(required=True)
@@ -23,10 +30,19 @@ class Employees(me.Document):
     def __str__(self):
         return f'ID: {self.pk} |Employees_id: {self.employees_id} |Fio: {self.fio} |Position: {self.position}'
 
+    def save_employees(self, *args, **kwargs):
+        return super().save(*args, **kwargs)
+
+    def update_employees(self, **kwargs):
+        return super().update(**kwargs)
+
+    def delete_employees(self, *args, **kwargs):
+        return super().delete(*args, **kwargs)
+
 
 class Orders(me.Document):
     created_dt = me.DateTimeField(required=True)
-    updated_dt = me.DateTimeField()
+    updated_dt = me.DateTimeField(default=None)
     order_type = me.StringField(required=True, min_length=4)
     description = me.StringField(required=True, min_length=4)
     status = me.StringField(required=True)
@@ -44,24 +60,28 @@ class Orders(me.Document):
                f'Serial_no: {self.serial_no} |'\
                f'Creator_id: {self.creator_id} |'
 
-    def save(self, *args, **kwargs):
+    def save_orders(self, *args, **kwargs):
         self.created_dt = datetime.now()
         return super().save(*args, **kwargs)
 
-    def new_order(self):
-        pass
+    def update_orders(self, **kwargs):
+        # self.updated_dt = datetime.now()
+        # Orders.update(updated_dt = datetime.now())
+        # Не полуячилось добавить поле дати при изменении
+        return super().update(**kwargs)
 
-    def change_status(self, value_orders):
-        pass
+    def delete_orders(self, *args, **kwargs):
+        return super().delete(*args, **kwargs)
 
-    def delete_user(self):
-        self.__class__.objects.all().delete()
-        return print('ok')
 
-data_orders = Orders(created_dt=datetime.now(), order_type='Ремонт', description='Ремонт ноутбука',
-                     status='Новая', serial_no='2234', creator_id='3')
+data_orders = Orders(created_dt=datetime.now(), order_type='Диагностика', description='Диагностика ноутбука',
+                     status='Новая', serial_no='4321', creator_id='4')
 
 # Orders.objects.all().delete()
-
-# data_orders.save()
-Orders.delete()
+# data_orders.delete_user()
+# res = Orders.objects(order_type='Диагностика')
+# for i in res:
+#     print(i)
+# Orders.objects(order_type='Диагностика').delete()
+data_orders.save_orders()
+data_orders.update_orders(order_type='ttttt')
