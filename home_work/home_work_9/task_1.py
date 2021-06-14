@@ -25,7 +25,7 @@ class Employees(me.Document):
     employees_id = me.IntField(required=True)
     fio = me.StringField(required=True)
     position = me.StringField(required=True)
-    # departments = me.ReferenceField(Departments, reverse_delete_rule=me.CASCADE)
+    departments = me.ReferenceField(Departments, reverse_delete_rule=me.CASCADE)
 
     def __str__(self):
         return f'ID: {self.pk} |Employees_id: {self.employees_id} |Fio: {self.fio} |Position: {self.position}'
@@ -48,7 +48,7 @@ class Orders(me.Document):
     status = me.StringField(required=True)
     serial_no = me.IntField(required=True, min_length=4, max_value=99999)
     creator_id = me.IntField(required=True)
-    # creator_id = me.ReferenceField(Employees, reverse_delete_rule=me.CASCADE)
+    employees = me.ReferenceField(Employees, reverse_delete_rule=me.CASCADE)
 
     def __str__(self):
         return f'ID: {self.pk}  |'\
@@ -65,9 +65,9 @@ class Orders(me.Document):
         return super().save(*args, **kwargs)
 
     def update_orders(self, **kwargs):
-        # self.updated_dt = datetime.now()
-        # Orders.update(updated_dt = datetime.now())
-        # Не полуячилось добавить поле дати при изменении
+        self.updated_dt = datetime.now()
+        # В таком варианте, просто изменяет order_type дата изменения не добавляется.
+        # Ниже через Orders.update пробывал закидать поле updated_dt - подчеркнуло ошибку Parameter 'self' unfilled
         return super().update(**kwargs)
 
     def delete_orders(self, *args, **kwargs):
