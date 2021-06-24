@@ -45,17 +45,3 @@ def get_info():
 
 
 app.run(debug=True)
-
-
-
-# data_id = {"1": 5, "2": 7, "3": 10}
-#
-# with conn, conn.cursor() as cursor:
-#     list_data = {}
-#     for key in data_id:
-#         cursor.execute(Employees.SEARCH_EMPLOYEES_ID, (data_id[key], ))
-#         res = cursor.fetchall()
-#         list_data[data_id[key]] = list(res[0])
-#     print(list_data)
-#     json.dumps(list_data)
-#     print(list_data)
