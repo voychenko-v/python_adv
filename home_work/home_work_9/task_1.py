@@ -65,10 +65,7 @@ class Orders(me.Document):
         return super().save(*args, **kwargs)
 
     def update_orders(self, **kwargs):
-        self.updated_dt = datetime.now()
-        # В таком варианте, просто изменяет order_type дата изменения не добавляется.
-        # Ниже через Orders.update пробывал закидать поле updated_dt - подчеркнуло ошибку Parameter 'self' unfilled
-        return super().update(**kwargs)
+        return super().update(**kwargs, updated_dt=datetime.now())
 
     def delete_orders(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
