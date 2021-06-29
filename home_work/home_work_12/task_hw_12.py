@@ -2,6 +2,7 @@ import json
 from flask import Flask, request
 import psycopg2
 from psycopg2 import sql
+from multiprocessing import Process
 
 conn = psycopg2.connect('postgres://postgres:postgresdb@localhost:5432/order_service_db')
 
@@ -32,6 +33,8 @@ app = Flask('home_work_12')
 
 @app.route('/get_info', methods=['GET'])
 def get_info():
+    p = Process(target=get_info)
+    p.start()
     list_data = {}
     if request.method == 'GET':
         data_id = json.loads(request.data)
@@ -42,6 +45,7 @@ def get_info():
                 res = cursor.fetchall()
                 list_data[data_id[key]] = list(res[0])
             return json.dumps(list_data)
+    p.join()
 
 
 app.run(debug=True)
