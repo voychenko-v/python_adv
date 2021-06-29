@@ -17,7 +17,7 @@ class Car:
 
     @staticmethod
     def go():
-        return print('Машина начала ехать')
+        return 'Машина начала ехать'
 
     @staticmethod
     def stop():
@@ -25,20 +25,24 @@ class Car:
 
     @staticmethod
     def turn(side):
-        return print(f'Машина повернула на {side}')
+        return f'Машина повернула на {side}'
 
 
 class TownCar(Car):
+    speed_limit = 60
+
     def show_speed(self):
         super().show_speed()
-        if self.speed > 60:
+        if self.speed > self.speed_limit:
             print(f'Скорость перевышена!!!')
 
 
 class WorkCar(Car):
+    speed_limit = 40
+
     def show_speed(self):
         super().show_speed()
-        if self.speed > 40:
+        if self.speed > self.speed_limit:
             print(f'Скорость перевышена!!!')
 
 

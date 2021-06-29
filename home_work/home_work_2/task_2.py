@@ -4,7 +4,6 @@ import datetime
 class Application:
 
     __id_counter = 1
-    data_time = ''
 
     def __init__(self, user_name, id_equipment, status_app):
         Application.data_time = str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M"))
@@ -12,7 +11,7 @@ class Application:
         self.id_equipment = id_equipment
         self.status_app = status_app
         self.id = Application.__id_counter
-        self.time = Application.data_time
+        self.time = datetime.datetime.now()
         Application.__id_counter += 1
 
     def __str__(self):
@@ -22,9 +21,12 @@ class Application:
                f'ID_EQ: {self.id_equipment}\n' \
                f'Status: {self.status_app}\n'
 
-#Затрудняюсь реализовать, запись даты реализовал правильно? Нужна подсказка
     def time_active(self):
-        pass
+        if self.status_app == 'Active':
+            time_active = datetime.datetime.now() - self.status_app
+            return time_active
+        else:
+            return 'Заявка не в работе'
 
     def chois_status(self, status):
         self.status_app = status
