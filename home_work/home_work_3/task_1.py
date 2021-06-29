@@ -12,9 +12,3 @@ with open('old_list.txt', 'r', encoding="utf-8") as f:
             if tmp is None:
                 tmp = line
             print(tmp, file=f_2, end='')
-
-
-
-
-
-
