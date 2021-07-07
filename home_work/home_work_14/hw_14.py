@@ -33,13 +33,22 @@ class Order(db.Model):
     serial_no = db.Column(db.Integer)
     creator_id = db.Column(db.Integer, db.ForeignKey('employee.employees_id'))
 
+    def __str__(self):
+        return f"Order_id: {self.order_id}\n" \
+               f"Created_dt: {self.created_dt}\n" \
+               f"Order_type: {self.order_type}\n" \
+               f"Description: {self.description}\n" \
+               f"Status: {self.status}\n" \
+               f"Serial_no: {self.serial_no}\n" \
+               f"Creator_id: {self.creator_id}\n"
+
 
 @app.route("/ping")
 def ping():
     return f'OK {datetime.now()}'
 
 
-@app.route('/insert_db', methods=['POST'])
+@app.route('/insert_order', methods=['POST'])
 def insert_db():
     if request.method == 'POST':
         data_order = json.loads(request.data)
@@ -82,27 +91,25 @@ def insert_department():
 def change_status():
     if request.method == 'PATCH':
         data_status = json.loads(request.data)
-        order_profile = Order(order_id=data_status['order_id'],
-                              description=data_status['description'])
-        db.session.add(order_profile)
-        db.session.flush()
+        get_id = Order.query.filter_by(order_id=data_status['order_id']).first()
+        get_id.status = data_status['new_status']
+        get_id.update_dt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         db.session.commit()
-        return f'Change_status {json.loads(request.data)}'
+        return f'Change_status'
 
 
-# @app.route('/delete_order/<string:delete_id>', methods=['DELETE'])
-# def delete_order(delete_id):
-#     with conn, conn.cursor() as cursor:
-#         cursor.execute(Order.DELETE_ORDERS_ID, (delete_id, ))
-#     return f'Ok - delete_id: {delete_id}'
-#
-#
-# @app.route('/search_order_id/<string:search_id>', methods=['GET'])
-# def search_order_id(search_id):
-#     with conn, conn.cursor() as cursor:
-#         cursor.execute(Order.SEARCH_ORDER_ID, (search_id, ))
-#         res = cursor.fetchall()
-#     return f'{res}'
+@app.route('/delete_order/<string:delete_id>', methods=['DELETE'])
+def delete_order(delete_id):
+    del_id = Order.query.filter_by(order_id=delete_id).first()
+    db.session.delete(del_id)
+    db.session.commit()
+    return f'Ok - delete_order_id: {delete_id}'
+
+
+@app.route('/search_order_id/<string:search_id>', methods=['GET'])
+def search_order_id(search_id):
+    search_order = Order.query.filter_by(order_id=search_id).first()
+    return f'{search_order}'
 
 
 app.run(debug=True)
